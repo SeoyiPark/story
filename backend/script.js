@@ -1,8 +1,7 @@
-// Firebase SDK import
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// Firebase 연결
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-// 🔥 Firebase 설정 (네 프로젝트의 값으로 교체)
 const firebaseConfig = {
   apiKey: "AIzaSyDGBOvCQy9Mbpgn8gEdfr7ixcsc9ZgiE-k",
   authDomain: "story-ed977.firebaseapp.com",
@@ -13,49 +12,27 @@ const firebaseConfig = {
   databaseURL: "https://story-ed977-default-rtdb.firebaseio.com"
 };
 
-// 초기화
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const popcat = document.getElementById('popcat');
-const scoreDisplay = document.getElementById('score');
-const leaderboard = document.getElementById('leaderboard');
-const popSound = document.getElementById('popSound');
+// 점수 관련
+let score = 0;
+const scoreEl = document.getElementById("score");
+const catImg = document.getElementById("catImg");
+const rankingBtn = document.getElementById("rankingBtn");
 
-let score = Number(localStorage.getItem('popScore')) || 0;
-let username = localStorage.getItem('popName');
-
-if (!username) {
-  username = prompt("닉네임을 입력하세요 🐱 (영문 또는 간단한 이름)");
-  localStorage.setItem('popName', username);
-}
-
-scoreDisplay.textContent = score;
-
-// 클릭 이벤트
-popcat.addEventListener('mousedown', () => {
-  popcat.classList.add('open');
-  popSound.currentTime = 0;
-  popSound.play();
+// 클릭할 때 이미지 바뀌기
+catImg.addEventListener("mousedown", () => {
+  catImg.src = "https://raw.githubusercontent.com/alexanderbast/popcat/main/popcat_open.png";
   score++;
-  scoreDisplay.textContent = score;
-  localStorage.setItem('popScore', score);
-
-  // Firebase에 업데이트
-  update(ref(db, 'players/' + username), { score: score });
+  scoreEl.textContent = score;
 });
 
-popcat.addEventListener('mouseup', () => {
-  popcat.classList.remove('open');
+catImg.addEventListener("mouseup", () => {
+  catImg.src = "https://raw.githubusercontent.com/alexanderbast/popcat/main/popcat_closed.png";
 });
 
-// 실시간 랭킹 표시
-onValue(ref(db, 'players'), (snapshot) => {
-  const data = snapshot.val();
-  const arr = Object.entries(data || {}).map(([name, obj]) => ({ name, score: obj.score }));
-  arr.sort((a, b) => b.score - a.score);
-  leaderboard.innerHTML = arr
-    .slice(0, 10)
-    .map((p, i) => `<li>${i + 1}. ${p.name} - ${p.score}</li>`)
-    .join('');
+// 전세계 랭킹 클릭
+rankingBtn.addEventListener("click", async () => {
+  alert("🔥 전세계 랭킹은 곧 추가될 예정이에요!\n지금은 로컬 점수만 표시됩니다 :)");
 });

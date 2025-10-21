@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Popcat Global 🐱</title>
+  <title>🐱 POPCAT GLOBAL</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>🐱 POPCAT GLOBAL</h1>
-    <div id="popcat" class="popcat"></div>
-    <p>내 점수: <span id="score">0</span></p>
+  <h1>🐱 POPCAT GLOBAL</h1>
 
-    <h2>🌍 전세계 랭킹</h2>
-    <ul id="leaderboard"></ul>
+  <!-- 고양이 이미지 -->
+  <div id="popcat">
+    <img id="catImg" src="https://raw.githubusercontent.com/alexanderbast/popcat/main/popcat_closed.png" alt="popcat" />
   </div>
 
-  <audio id="popSound" src="https://www.myinstants.com/media/sounds/pop-cat.mp3"></audio>
+  <!-- 점수 표시 -->
+  <p>내 점수: <span id="score">0</span></p>
+
+  <!-- 랭킹 버튼 -->
+  <button id="rankingBtn">🌍 전세계 랭킹</button>
+
   <script type="module" src="script.js"></script>
 </body>
 </html>
