@@ -69,7 +69,7 @@ if (!rankingBtn) {
   console.error("요소 #rankingBtn 가 DOM에 없습니다. index.html을 확인하세요.");
 }
 
-// -------------------- 클릭 핸들러: 로고 클릭하면 개인 + 동아리 집계 --------------------
+// -------------------- 클릭 핸들러: 로고 클릭하면 개인 + 동아리 집계 (수정) --------------------
 if (logo) {
   // mousedown / mouseup으로 시각효과 비슷하게 처리
   logo.addEventListener("mousedown", async () => {
@@ -82,20 +82,26 @@ if (logo) {
     if (scoreEl) scoreEl.textContent = score;
 
     try {
-      // 1) 개인 점수 저장(덮어쓰기: 최신 점수)
-      await update(ref(db, `scores/${username}`), { score, club: selectedClub || null });
+      // 1) [수정] 개인 점수 저장 -> 'users' 경로로 분리 (랭킹과 충돌 방지)
+      //    'scores' 경로는 동아리 랭킹 전용으로 사용합니다.
+      await update(ref(db, `users/${username}`), { 
+          score: score, // 이 사용자의 개인 누적 클릭 수
+          club: selectedClub || null 
+      });
 
-      // 2) 선택된 동아리가 있다면 동아리 총점 원자적 증가 (transaction 사용)
+      // 2) [수정] 선택된 동아리가 있다면 동아리 총점 원자적 증가
       if (selectedClub) {
-        const clubRef = ref(db, `clubs/${selectedClub}/score`);
-        // runTransaction으로 동시성 안전하게 +1
-        await runTransaction(clubRef, (current) => {
-          return (current || 0) + 1;
+        // [수정] 경로를 'scores/동아리이름/totalScore'로 변경 (랭킹 코드와 일치)
+        const clubRef = ref(db, `scores/${selectedClub}/totalScore`); 
+        
+        // runTransaction으로 동시성 안전하게 +1 (누적)
+        await runTransaction(clubRef, (currentTotal) => {
+          // currentTotal은 현재 DB의 totalScore 값
+          return (currentTotal || 0) + 1; // 1씩 누적
         });
       }
     } catch (err) {
       console.error("Firebase 업데이트 실패:", err);
-      // 네트워크/권한 이슈일 때 사용자에게 알릴 수도 있음 (선택)
     }
   });
 
@@ -103,19 +109,26 @@ if (logo) {
     logo.style.transform = "scale(1)";
   });
 
-  // 터치 환경에서도 동작하도록 touchstart/touchend 추가
+  // 터치 환경에서도 동일하게 경로 수정
   logo.addEventListener("touchstart", (e) => {
     e.preventDefault();
     logo.style.transform = "scale(0.95)";
     score++;
     if (scoreEl) scoreEl.textContent = score;
 
-    // 비동기 DB 업데이트 (비동기 호출이긴 하나 이벤트 블로킹하지 않음)
+    // 비동기 DB 업데이트
     (async () => {
       try {
-        await update(ref(db, `scores/${username}`), { score, club: selectedClub || null });
+        // 1) [수정] 개인 점수 저장 -> 'users' 경로로 분리
+        await update(ref(db, `users/${username}`), { 
+            score: score, 
+            club: selectedClub || null 
+        });
+
+        // 2) [수정] 동아리 점수 누적 -> 'scores/동아리이름/totalScore'
         if (selectedClub) {
-          await runTransaction(ref(db, `clubs/${selectedClub}/score`), (current) => (current || 0) + 1);
+          const clubRef = ref(db, `scores/${selectedClub}/totalScore`);
+          await runTransaction(clubRef, (currentTotal) => (currentTotal || 0) + 1);
         }
       } catch (err) {
         console.error("Firebase touch 업데이트 실패:", err);
@@ -128,20 +141,23 @@ if (logo) {
     logo.style.transform = "scale(1)";
   });
 }
-
-// -------------------- 랭킹 버튼: 동아리 합계 랭킹 보기 --------------------
+// -------------------- 랭킹 버튼: 동아리 랭킹 보기 (수정) --------------------
 if (rankingBtn) {
   rankingBtn.addEventListener("click", async () => {
     try {
-      // clubs 전체 불러오기
-      const clubsSnap = await get(child(ref(db), "clubs"));
+      // [수정] "clubs" -> "scores" 경로에서 데이터를 불러옵니다.
+      const scoresSnap = await get(child(ref(db), "scores"));
       let msg = "";
 
-      if (clubsSnap.exists()) {
-        const clubs = clubsSnap.val();
-        // clubs 객체 -> 배열로 변환 후 점수 기준 내림차순 정렬
-        const sorted = Object.entries(clubs)
-          .map(([name, info]) => ({ name, score: (info && info.score) || 0 }))
+      if (scoresSnap.exists()) {
+        const scoresData = scoresSnap.val(); 
+
+        const sorted = Object.entries(scoresData)
+          .map(([clubName, info]) => ({
+            name: clubName,
+            // [수정] info.score -> info.totalScore 
+            score: (info && info.totalScore) ? info.totalScore : 0
+          }))
           .sort((a, b) => b.score - a.score);
 
         msg = "🏆 동아리 합산 랭킹 🏆\n\n";
@@ -149,7 +165,7 @@ if (rankingBtn) {
           msg += `${i + 1}. ${c.name} — ${c.score}점\n`;
         });
       } else {
-        msg = "아직 동아리 점수가 없습니다.";
+        msg = "아직 랭킹에 등록된 동아리 점수가 없습니다.";
       }
 
       alert(msg);
