@@ -1,60 +1,98 @@
-/* 전체 화면 */
-body {
+/* 전체 기본 스타일 */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   height: 100vh;
-  font-family: "Pretendard", sans-serif;
-  background: url("./public/background.jpg") no-repeat center center fixed;
-  background-size: cover;
+  width: 100vw;
+  font-family: 'Pretendard', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: url('./public/background.jpg') no-repeat center center/cover;
+  overflow: hidden;
 }
 
-/* 메인 컨테이너 */
+/* 중앙 정렬 컨테이너 */
 .container {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 40px 60px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-
-/* 제목 */
-h1 {
-  font-size: 2.2rem;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 80vh;
+  width: 100%;
+  padding: 40px 0;
 }
 
 /* 로고 이미지 */
-#catImg {
-  width: 200px;           /* 👈 크기 조정 */
+#logo {
+  width: 350px; /* 필요 시 120~180px 조절 가능 */
   height: auto;
-  cursor: pointer;
-  transition: transform 0.1s ease;
+  margin-top: 20px;
+  transition: transform 0.2s ease;
 }
 
-#catImg:active {
-  transform: scale(0.9);  /* 클릭 시 작게 눌리는 효과 */
+/* 로고 클릭 시 살짝 커지는 애니메이션 */
+#logo:active {
+  transform: scale(1.1);
 }
 
-/* 점수 */
-p {
-  font-size: 1.3rem;
-  margin: 20px 0;
+/* 점수 박스 */
+.score-box {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 15px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  backdrop-filter: blur(4px);
 }
 
-/* 버튼 */
+/* 점수 텍스트 */
+.score-box p {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* 버튼 스타일 */
 #rankingBtn {
-  padding: 10px 20px;
-  font-size: 1.1rem;
-  background-color: #fff;
-  border: 2px solid #000;
-  border-radius: 10px;
+  background: #3d64ff;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 #rankingBtn:hover {
-  background-color: #ffe98a;
+  background: #333;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  #logo {
+    width: 120px;
+  }
+
+  .score-box {
+    padding: 20px 30px;
+  }
+
+  .score-box p {
+    font-size: 18px;
+  }
+
+  #rankingBtn {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
 }
