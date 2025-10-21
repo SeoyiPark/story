@@ -18,24 +18,24 @@ const db = getDatabase(app);
 // -------------------- 게임 로직 --------------------
 let score = 0;
 const scoreEl = document.getElementById("score");
-const catImg = document.getElementById("catImg");
+const logo = document.getElementById("logo");
 const rankingBtn = document.getElementById("rankingBtn");
 
 // 유저 이름 (랜덤)
 const username = "user_" + Math.floor(Math.random() * 100000);
 
-// 클릭 시 점수 + 이미지 전환
-catImg.addEventListener("mousedown", () => {
-  catImg.src = "https://raw.githubusercontent.com/alexanderbast/popcat/main/popcat_open.png";
+// 클릭 시 점수 증가
+logo.addEventListener("mousedown", () => {
+  logo.style.transform = "scale(0.9)";
   score++;
   scoreEl.textContent = score;
 
-  // 점수 Firebase에 저장 (유저별 최신 점수)
+  // Firebase에 점수 업로드
   update(ref(db, "scores/" + username), { score });
 });
 
-catImg.addEventListener("mouseup", () => {
-  catImg.src = "https://raw.githubusercontent.com/alexanderbast/popcat/main/popcat_closed.png";
+logo.addEventListener("mouseup", () => {
+  logo.style.transform = "scale(1)";
 });
 
 // -------------------- 전세계 랭킹 보기 --------------------
@@ -59,7 +59,7 @@ rankingBtn.addEventListener("click", async () => {
 
       alert(rankText);
     } else {
-      alert("아직 아무도 POP을 하지 않았어요 😹");
+      alert("아직 아무도 점수를 기록하지 않았어요 😺");
     }
   } catch (error) {
     console.error(error);
