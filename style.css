@@ -17,32 +17,73 @@ body {
 }
 
 .club-body {
-  background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  font-family: 'Pretendard', sans-serif;
+  min-height: 100vh;
+  background-color: #f4f4f4;
 }
 
 .club-container {
+  width: 90%;
+  max-width: 800px; /* 최대 너비 제한 */
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   text-align: center;
-  background: rgba(255,255,255,0.9);
-  padding: 40px 60px;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
+/* * ✨ 여기가 핵심입니다: Grid 레이아웃 적용
+ */
 .club-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin: 25px 0;
+  display: grid;
+  
+  /* * [설명]
+   * - repeat: 반복
+   * - auto-fit: 공간이 허락하는 한 자동으로 채움
+   * - minmax(150px, 1fr): 각 아이템(열)의 최소 너비는 150px,
+   * 공간이 남으면 1fr(균등) 비율로 늘어남
+   */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  
+  gap: 10px; /* 아이템 사이의 간격 */
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 
+/* --- (선택 사항) 라디오 버튼을 예쁜 버튼처럼 꾸미기 --- */
+
+/* 1. 기존 라디오 버튼은 시각적으로 숨깁니다. */
+.club-list input[type="radio"] {
+  display: none; 
+}
+
+/* 2. 라벨(label)을 버튼처럼 꾸밉니다. */
 .club-list label {
-  font-size: 1.1rem;
+  display: block; /* 그리드 셀을 꽉 채움 */
+  padding: 12px 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out; /* 부드러운 효과 */
+  font-size: 0.95rem;
+}
+
+/* 3. 마우스를 올렸을 때(hover) 효과 */
+.club-list label:hover {
+  background-color: #f7f7f7;
+  border-color: #aaa;
+}
+
+/* 4. (핵심) 라디오 버튼이 선택되었을 때(checked)
+      그 '바로 뒤'에 오는 'label'의 스타일을 변경합니다. */
+.club-list input[type="radio"]:checked + label {
+  background-color: #007bff; /* 원하는 테마 색상으로 변경하세요 */
+  color: white;
+  border-color: #007bff;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
 }
 
 #startBtn {
