@@ -1,33 +1,60 @@
+/* 전체 화면 */
 body {
   margin: 0;
+  padding: 0;
   height: 100vh;
+  font-family: "Pretendard", sans-serif;
+  background: url("./public/background.jpg") no-repeat center center fixed;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("./public/background.jpg");
-  background-size: cover;
-  background-position: center;
-  font-family: "Pretendard", sans-serif;
 }
 
+/* 메인 컨테이너 */
 .container {
   text-align: center;
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px 60px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-#cat {
-  width: 200px;
+/* 제목 */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+/* 로고 이미지 */
+#catImg {
+  width: 200px;           /* 👈 크기 조정 */
+  height: auto;
   cursor: pointer;
   transition: transform 0.1s ease;
 }
 
-#cat:active {
-  transform: scale(0.9);
+#catImg:active {
+  transform: scale(0.9);  /* 클릭 시 작게 눌리는 효과 */
 }
 
-#score {
-  color: #ffcc00;
-  font-size: 2rem;
-  font-weight: bold;
+/* 점수 */
+p {
+  font-size: 1.3rem;
+  margin: 20px 0;
+}
+
+/* 버튼 */
+#rankingBtn {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#rankingBtn:hover {
+  background-color: #ffe98a;
 }
