@@ -2,19 +2,21 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>🍁Fall Game🍁</title>
+  <title>동아리 선택</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
-    <img id="logo" src="./public/logo.png" alt="logo">
-
-    <div class="score-box">
-      <p>내 점수: <span id="score">0</span></p>
-      <button id="rankingBtn">동아리 랭킹</button>
+<body class="club-body">
+  <div class="club-container">
+    <h1>참여할 동아리를 선택하세요</h1>
+    <div class="club-list">
+      <label><input type="radio" name="club" value="코딩동아리"> 코딩동아리</label>
+      <label><input type="radio" name="club" value="댄스동아리"> 댄스동아리</label>
+      <label><input type="radio" name="club" value="음악동아리"> 음악동아리</label>
+      <label><input type="radio" name="club" value="미술동아리"> 미술동아리</label>
     </div>
+    <button id="startBtn">시작하기</button>
   </div>
 
-  <script type="module" src="./backend/script.js"></script>
+  <script src="./backend/club.js"></script>
 </body>
 </html>

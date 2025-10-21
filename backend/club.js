@@ -43,7 +43,7 @@ function handleGameStart() {
         // 선택 정보를 localStorage에 저장합니다.
         localStorage.setItem('selectedClub', selectedClub);
         // 메인 게임 페이지로 이동합니다. (파일 이름이 다르면 'index.html'을 수정하세요)
-        window.location.href = 'index.html';
+        window.location.href = 'game.html';
     } else {
         // 동아리를 선택하지 않았을 경우 알림을 띄웁니다.
         alert('동아리를 먼저 선택해주세요!');
