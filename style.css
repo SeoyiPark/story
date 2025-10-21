@@ -16,6 +16,51 @@ body {
   overflow: hidden;
 }
 
+.club-body {
+  background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.club-container {
+  text-align: center;
+  background: rgba(255,255,255,0.9);
+  padding: 40px 60px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.club-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.club-list label {
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+#startBtn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff914d;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#startBtn:hover {
+  background-color: #ff6f00;
+}
+
+
 /* 중앙 정렬 컨테이너 */
 .container {
   display: flex;
