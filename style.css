@@ -1,31 +1,33 @@
 body {
-  font-family: "Noto Sans KR", sans-serif;
-  text-align: center;
-  background-color: #f6f6f6;
-  color: #222;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./public/background.jpg");
+  background-size: cover;
+  background-position: center;
+  font-family: "Pretendard", sans-serif;
 }
 
-#popcat img {
+.container {
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+#cat {
   width: 200px;
   cursor: pointer;
-  user-select: none;
+  transition: transform 0.1s ease;
 }
 
-p {
-  font-size: 1.2rem;
+#cat:active {
+  transform: scale(0.9);
 }
 
 #score {
-  font-weight: bold;
-  color: orange;
-}
-
-button {
-  background: white;
-  border: 2px solid #333;
-  padding: 10px 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
+  color: #ffcc00;
+  font-size: 2rem;
   font-weight: bold;
 }

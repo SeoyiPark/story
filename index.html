@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐱 POPCAT GLOBAL</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🐱 POPCAT GLOBAL</h1>
-
-  <!-- 고양이 이미지 -->
-  <div id="popcat">
-    <img id="catImg" src="https://raw.githubusercontent.com/alexanderbast/popcat/main/popcat_closed.png" alt="popcat" />
+  <div class="container">
+    <h1>🐱 POPCAT GLOBAL</h1>
+    <img id="cat" src="./public/logo.png" alt="popcat">
+    <p>내 점수: <span id="score">0</span></p>
   </div>
 
-  <!-- 점수 표시 -->
-  <p>내 점수: <span id="score">0</span></p>
-
-  <!-- 랭킹 버튼 -->
-  <button id="rankingBtn">🌍 전세계 랭킹</button>
-
-  <script type="module" src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
