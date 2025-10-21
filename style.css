@@ -86,10 +86,18 @@ body {
   box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
 }
 
+.club-list label.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3)
+}
+
 #startBtn {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: #ff914d;
+  background-color: #6666fe;
   border: none;
   color: white;
   border-radius: 8px;
@@ -98,7 +106,7 @@ body {
 }
 
 #startBtn:hover {
-  background-color: #ff6f00;
+  background-color: #042abd;
 }
 
 
