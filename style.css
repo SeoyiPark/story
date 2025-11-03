@@ -16,6 +16,25 @@ body {
   overflow: hidden;
 }
 
+.user-info {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user-info label {
+  font-weight: bold;
+}
+
+.user-info input {
+  margin-left: 5px;
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
 .club-body {
   display: flex;
   justify-content: center;
