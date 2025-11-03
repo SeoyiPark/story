@@ -54,6 +54,35 @@
     <button id="startBtn">시작하기</button>
   </div>
 
+  <script>
+    const startBtn = document.getElementById("startBtn");
+
+    startBtn.addEventListener("click", () => {
+      const studentId = document.getElementById("studentId").value.trim();
+      const studentName = document.getElementById("studentName").value.trim();
+      const selectedClub = document.querySelector('input[name="club"]:checked');
+
+      if (!studentId) {
+        alert("📌 학번을 입력해주세요!");
+        return;
+      }
+
+      if (!studentName) {
+        alert("📌 이름을 입력해주세요!");
+        return;
+      }
+
+      if (!selectedClub) {
+        alert("📌 동아리를 선택해주세요!");
+        return;
+      }
+
+      // 여기서 다음 페이지로 이동 (예: game.html)
+      alert(`${studentName}님 (${studentId})\n${selectedClub.value} 동아리로 시작합니다!`);
+      window.location.href = "game.html"; // 원하는 페이지로 변경 가능
+    });
+  </script>
+  
   <script type="module" src="./backend/club.js"></script>
 </body>
 </html>
