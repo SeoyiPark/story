@@ -148,6 +148,14 @@ body {
   transition: transform 0.2s ease;
 }
 
+/* 모바일 대응 (화면 너비 600px 이하일 때) */
+@media (max-width: 600px) {
+  #logo {
+    width: 70vw;  /* 화면 너비 기준으로 자동 조정 */
+    max-width: none;
+  }
+}
+
 /* 로고 클릭 시 살짝 커지는 애니메이션 */
 #logo:active {
   transform: scale(1.1);
@@ -208,4 +216,13 @@ body {
     font-size: 14px;
     padding: 8px 20px;
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  color: #a8aeff;
+  font-size: 0.9em;
 }
