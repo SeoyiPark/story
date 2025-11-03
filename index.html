@@ -8,6 +8,7 @@
 <body class="club-body">
   <div class="club-container">
     <h1>본인의 동아리를 선택하세요.</h1>
+
     <div class="user-info">
       <label>
         학번:
@@ -18,6 +19,7 @@
         <input type="text" id="studentName" placeholder="예: 홍길동">
       </label>
     </div>
+
     <div class="club-list">
       <label><input type="radio" name="club" value="어뮤즈"> 어뮤즈</label>
       <label><input type="radio" name="club" value="J2G"> J2G</label>
@@ -51,38 +53,11 @@
       <label><input type="radio" name="club" value="쩝쩝박사"> 쩝쩝박사</label>
       <label><input type="radio" name="club" value="예수전도단"> 예수전도단</label>
     </div>
+
     <button id="startBtn" type="button">시작하기</button>
   </div>
 
-  <script>
-    const startBtn = document.getElementById("startBtn");
-
-    startBtn.addEventListener("click", () => {
-      const studentId = document.getElementById("studentId").value.trim();
-      const studentName = document.getElementById("studentName").value.trim();
-      const selectedClub = document.querySelector('input[name="club"]:checked');
-
-      if (!studentId) {
-        alert("📌 학번을 입력해주세요!");
-        return;
-      }
-
-      if (!studentName) {
-        alert("📌 이름을 입력해주세요!");
-        return;
-      }
-
-      if (!selectedClub) {
-        alert("📌 동아리를 선택해주세요!");
-        return;
-      }
-
-      // 여기서 다음 페이지로 이동 (예: game.html)
-      alert(`${studentName}님 (${studentId})\n${selectedClub.value} 동아리로 시작합니다!`);
-      window.location.href = "game.html"; // 원하는 페이지로 변경 가능
-    });
-  </script>
-
+  <!-- club.js에서만 클릭 이벤트를 관리하도록 함 -->
   <script type="module" src="./backend/club.js"></script>
 </body>
 </html>

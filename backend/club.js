@@ -27,8 +27,11 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const startGameBtn = document.getElementById('startBtn');
-// name이 'club'인 모든 라디오 버튼을 가져옵니다.
 const clubRadioButtons = document.querySelectorAll('input[name="club"]');
+
+// ✅ 학번·이름 입력란 가져오기
+const studentIdInput = document.getElementById('studentId');
+const nameInput = document.getElementById('name');
 
 // --- 앱 상태 변수 ---
 let selectedClub = null;
@@ -37,53 +40,54 @@ let selectedClub = null;
  * '시작하기' 버튼 클릭 이벤트를 처리합니다.
  */
 function handleGameStart(event) {
-  // 🚨 버튼의 기본 제출 동작 방지 (중요!)
-  event.preventDefault();
+  event.preventDefault(); // 🚫 기본 이동 막기
 
-  if (selectedClub) {
-    console.log(`선택된 동아리: ${selectedClub}`);
-    // 선택 정보를 localStorage에 저장합니다.
-    localStorage.setItem('selectedClub', selectedClub);
-    // 메인 게임 페이지로 이동합니다.
-    window.location.href = 'game.html';
-  } else {
-    // 동아리를 선택하지 않았을 경우 알림을 띄웁니다.
-    alert('동아리를 먼저 선택해주세요!');
-    return; // 🚨 실행 중단
+  const studentId = studentIdInput?.value.trim();
+  const name = nameInput?.value.trim();
+
+  // 입력값 검증
+  if (!studentId || !name) {
+    alert('학번과 이름을 모두 입력해주세요!');
+    return; // 🚫 바로 종료 — 이동 안함
   }
+
+  if (!selectedClub) {
+    alert('동아리를 먼저 선택해주세요!');
+    return; // 🚫 바로 종료 — 이동 안함
+  }
+
+  // 저장
+  localStorage.setItem('selectedClub', selectedClub);
+  localStorage.setItem('studentId', studentId);
+  localStorage.setItem('name', name);
+
+  console.log(`동아리: ${selectedClub}, 학번: ${studentId}, 이름: ${name}`);
+
+  // ✅ 모든 조건 충족 시 이동
+  window.location.href = 'game.html';
 }
 
 /**
- * 페이지가 로드될 때 실행될 초기화 함수입니다.
+ * 초기화 함수
  */
 function initialize() {
-  // 페이지가 처음 로드될 때 버튼을 비활성화합니다.
   startGameBtn.disabled = true;
 
-  // [추가] CSS 스타일링을 위해 모든 라벨 요소를 미리 찾아둡니다.
   const allLabels = document.querySelectorAll('.club-list label');
 
-  // 각 라디오 버튼에 이벤트 리스너를 추가합니다.
   clubRadioButtons.forEach(radio => {
     radio.addEventListener('change', (event) => {
-      // 선택된 동아리 값을 변수에 저장합니다.
       selectedClub = event.target.value;
-      // 동아리가 선택되면 버튼을 활성화합니다.
       startGameBtn.disabled = false;
 
-      // --- ▼▼▼ 선택 스타일링 처리 ▼▼▼ ---
       allLabels.forEach(label => label.classList.remove('selected'));
-
       if (event.target.parentElement) {
         event.target.parentElement.classList.add('selected');
       }
-      // --- ▲▲▲ 여기까지 추가 ---
     });
   });
 
-  // 시작 버튼에 클릭 이벤트 리스너를 추가합니다.
   startGameBtn.addEventListener('click', handleGameStart);
 }
 
-// 페이지의 모든 콘텐츠가 로드된 후 초기화 함수를 실행합니다.
 document.addEventListener('DOMContentLoaded', initialize);
