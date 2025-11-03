@@ -133,19 +133,19 @@ body {
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  height: 80vh;
-  width: 100%;
-  padding: 40px 0;
+  min-height: 100vh; /* 화면 높이 꽉 채움 */
+  position: relative;
 }
 
 /* 로고 이미지 */
 #logo {
-  width: 350px; /* 필요 시 120~180px 조절 가능 */
+  width: 300px;
+  max-width: 60vw; /* 모바일 대응: 화면 60%까지만 */
   height: auto;
-  margin-top: 20px;
-  transition: transform 0.2s ease;
+  display: block;
+  margin: 0 auto;
 }
 
 /* 모바일 대응 (화면 너비 600px 이하일 때) */
@@ -163,12 +163,11 @@ body {
 
 /* 점수 박스 */
 .score-box {
-  background: rgba(255, 255, 255, 0.6);
-  padding: 15px 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: center;
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 10px 20px;
+  border-radius: 12px;
+  margin-top: 30px;
 }
 
 /* 점수 텍스트 */
@@ -198,23 +197,18 @@ body {
   transform: translateY(-2px);
 }
 
-/* 모바일 대응 */
 @media (max-width: 600px) {
   #logo {
-    width: 120px;
+    width: 70vw; /* 모바일에서 크게 보이게 */
   }
 
   .score-box {
-    padding: 20px 30px;
+    padding: 8px 16px;
+    font-size: 0.9em;
   }
 
-  .score-box p {
-    font-size: 18px;
-  }
-
-  #rankingBtn {
-    font-size: 14px;
-    padding: 8px 20px;
+  .footer {
+    font-size: 0.75em;
   }
 }
 
@@ -223,6 +217,7 @@ body {
   bottom: 10px;
   width: 100%;
   text-align: center;
-  color: #a8aeff;
-  font-size: 0.9em;
+  color: #fff;
+  font-size: 0.8em;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
