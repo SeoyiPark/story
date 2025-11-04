@@ -31,7 +31,7 @@ const clubRadioButtons = document.querySelectorAll('input[name="club"]');
 
 // ✅ 학번·이름 입력란 가져오기
 const studentIdInput = document.getElementById('studentId');
-const nameInput = document.getElementById('name');
+const nameInput = document.getElementById('studentName');
 
 // --- 앱 상태 변수 ---
 let selectedClub = null;
